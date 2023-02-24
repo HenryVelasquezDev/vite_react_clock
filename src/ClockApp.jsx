@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { Component, useEffect, useState } from 'react';
+import { Clock } from './components/Clock';
 
 export const ClockApp = () => {
 
-    const [secondDegree, setSecondDegree] = useState(90);
-    const [minuteDegree, setMinuteDegree] = useState(90);
-    const [hourDegree, setHourDegree] = useState(90);
+    const [tiempo, setTiempo] = useState({
+        seconds: 90,
+        minutes: 90,
+        hours: 90
+    })
 
     const setDate = () => {
         const now = new Date();
@@ -12,12 +15,14 @@ export const ClockApp = () => {
         const minutes = now.getMinutes();
         const hours = now.getHours();
 
-        console.log( hours, minutes, seconds );
-        console.log( hourDegree, minuteDegree, secondDegree );
+        console.log(hours, minutes, seconds);
+        console.log((((seconds == 0 ? 60 : seconds) / 60) * 360) + 90);
 
-        setSecondDegree((((seconds == 0 ? 60 : seconds) / 60) * 360) + 90);
-        setMinuteDegree((((minutes == 0 ? 60 : minutes)  / 60) * 360) + 90);
-        setHourDegree(((hours / 12) * 360) + 90);
+        setTiempo({
+            seconds: (((seconds == 0 ? 60 : seconds) / 60) * 360) + 90,
+            minutes: (((minutes == 0 ? 60 : minutes) / 60) * 360) + 90,
+            hours: ((hours / 12) * 360) + 90
+        });
     }
 
     useEffect(() => {
@@ -26,18 +31,8 @@ export const ClockApp = () => {
 
 
     return (
-        <div className="clock">
-            <div className="clock-face">
-                <div className="hand hour-hand"
-                    style={{ transform: `rotate(${hourDegree}deg)` }}
-                ></div>
-                <div className="hand min-hand"
-                    style={{ transform: `rotate(${minuteDegree}deg)` }}
-                ></div>
-                <div className="hand second-hand"
-                    style={{ transform: `rotate(${secondDegree}deg)` }}
-                ></div>
-            </div>
-        </div>
+        <>
+            <Clock hours={tiempo.hours} minutes={tiempo.minutes} seconds={tiempo.seconds} />
+        </>
     )
 }

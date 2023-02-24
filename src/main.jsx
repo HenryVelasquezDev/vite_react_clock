@@ -4,7 +4,7 @@ import { ClockApp } from './ClockApp';
 import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <ClockApp />
-  </React.StrictMode>,
+  // </React.StrictMode>,
 )
